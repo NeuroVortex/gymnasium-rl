@@ -1,5 +1,5 @@
 import gymnasium as gym
-import matplotlib as plt
+from matplotlib import pyplot as plt
 import logging
 
 logger = logging.getLogger(__name__)
@@ -11,10 +11,20 @@ class Environment:
 
     def __create_env(self, env_id: str, render_mode):
         self.__env = gym.make(env_id, render_mode=render_mode)
-        self.__init_state, _ = self.__env.reset(seed=42)  # we set seed to enable reproduction of result capability
+        self.__init_state, _ = self.reset()  # we set seed to enable reproduction of result capability
 
         print(f"The number of actions is {self.__env.action_space.n}")
         print(f"The number of states is {self.__env.observation_space.shape}")
+
+    def reset(self, seed=42):
+        return self.__env.reset(seed=seed)
+
+    def perform_action(self, action):
+        return self.__env.step(action)
+
+    def observe(self, current_state, action):
+        _, _, next_state, reward, terminal = self.__env.unwrapped.P[current_state][action][0]
+        return next_state, reward
 
     @property
     def observation_space(self):
