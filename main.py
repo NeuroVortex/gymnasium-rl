@@ -1,4 +1,4 @@
-from CartPole import CartPole
+from src.CartPole import CartPole
 
 
 if __name__ == "__main__":

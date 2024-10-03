@@ -1,7 +1,7 @@
 import numpy as np
 
-from environment.env import create_env
-from environment.visualization import render
+from src.Application.environment.env import create_env
+from src.Application.environment.visualization import render
 
 
 class FrozenLake:

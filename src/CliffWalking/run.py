@@ -1,4 +1,4 @@
-from environment.env import create_env
+from src.Application.environment.env import create_env
 
 
 class FrozenLake:
