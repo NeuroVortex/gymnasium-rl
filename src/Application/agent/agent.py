@@ -1,16 +1,48 @@
 from src.Application.environment.env import Environment
+from src.Contract.RLType import RLType
+from src.Domain.IReinforcementLearning import IReinforcementLearning
 from src.Domain.model_based.model_based_toolbox import ModelBasedToolbox
+from src.Domain.monte_carlo.MonteCarlo import MonteCarlo
+from src.Domain.q_learning.DoubleQLearning import DoubleQLearning
+from src.Domain.q_learning.QLearning import QLearning
+from src.Domain.sarsa.ExpectedSARSA import ExpectedSARSA
+from src.Domain.sarsa.SARSA import SARSA
 
 
 class Agent:
-    def __init__(self, env: Environment, discount_factor: float, learning_rate: float):
+    def __init__(self, env: Environment,
+                 episode_num: int = 1000,
+                 rl_type: RLType = RLType.QLearning,
+                 discount_factor: float = 0.9,
+                 learning_rate: float = 0.9):
         self.__env = env
-        self.__initialize_policy()
-        self.__learning_rate = learning_rate
+        self.__episode_num = episode_num
+        self.__initialize(rl_type, learning_rate, discount_factor)
+        self.__rl_func: IReinforcementLearning | None = None
         self.__rl_toolbox = ModelBasedToolbox(env=self.__env, policy=self.__policy, discount_factor=discount_factor)
 
-    def __initialize_policy(self):
+    def __initialize(self, rl_type, learning_rate, discount_factor):
+        match rl_type:
+            case RLType.MonteCarlo:
+                self.__rl_func = MonteCarlo(self.__env)
+
+            case RLType.QLearning:
+                self.__rl_func = QLearning(env=self.__env, learning_rate=learning_rate,
+                                           discount_factor=discount_factor)
+
+            case RLType.SARSA:
+                self.__rl_func = SARSA(env=self.__env, learning_rate=learning_rate,
+                                       discount_factor=discount_factor)
+
+            case RLType.ExpectedSARSA:
+                self.__rl_func = ExpectedSARSA(env=self.__env, learning_rate=learning_rate,
+                                               discount_factor=discount_factor)
+
+            case RLType.DoubleQLearning:
+                self.__rl_func = DoubleQLearning(env=self.__env, learning_rate=learning_rate,
+                                                 discount_factor=discount_factor)
+
         self.__policy = {state: 0 for state in range(self.__env.states)}
 
     def act(self):
-        self.__rl_toolbox.train()
+        self.__rl_func.train(self.__episode_num)

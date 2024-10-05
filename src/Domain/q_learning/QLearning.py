@@ -5,7 +5,7 @@ from src.Domain.IReinforcementLearning import IReinforcementLearning
 
 class QLearning(IReinforcementLearning):
 
-    def __init__(self, learning_rate : float, discount_factor : float, env: Environment):
+    def __init__(self, learning_rate: float, discount_factor: float, env: Environment):
         self.__env = env
         self.__learning_rate = learning_rate
         self.__discount_factor = discount_factor

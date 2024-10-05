@@ -11,5 +11,5 @@ class IReinforcementLearning(ABC):
     def get_optimal_policy(self):
         raise NotImplementedError
 
-    def train(self, episode_num: int, seed):
+    def train(self, episode_num: int, seed=42):
         raise NotImplementedError

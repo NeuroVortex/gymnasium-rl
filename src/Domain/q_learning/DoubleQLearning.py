@@ -5,7 +5,7 @@ from src.Domain.IReinforcementLearning import IReinforcementLearning
 
 class DoubleQLearning(IReinforcementLearning):
 
-    def __init__(self, learning_rate : float, discount_factor : float, env: Environment):
+    def __init__(self, learning_rate: float, discount_factor: float, env: Environment):
         self.__env = env
         self.__learning_rate = learning_rate
         self.__discount_factor = discount_factor
@@ -41,8 +41,9 @@ class DoubleQLearning(IReinforcementLearning):
         self.__q_table[table_index][state, action] = (
                 (1 - self.__learning_rate) * self.__q_table[state, action] +
                 self.__learning_rate * (
-                        reward + self.__discount_factor * self.__q_table[1-table_index][next_state][max_q_table_index]))
+                        reward + self.__discount_factor * self.__q_table[1 - table_index][next_state][
+                    max_q_table_index]))
 
     @property
     def q_table(self):
-        return (self.__q_table[0] + self.__q_table[1])/2
+        return (self.__q_table[0] + self.__q_table[1]) / 2
