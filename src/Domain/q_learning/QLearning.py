@@ -25,7 +25,7 @@ class QLearning(IReinforcementLearning):
         while not terminated:
             action = self.__env.action_space.sample()
             next_state, reward, terminated, _, _ = self.__env.step(action)
-            self.__update_q_table(state, action, next_state, reward)
+            self.__update_q_table(state, action, reward, next_state)
             episode_reward += reward
             state = next_state
 
@@ -34,7 +34,7 @@ class QLearning(IReinforcementLearning):
 
             self.__random_action_reward.append(episode_reward)
 
-    def __update_q_table(self, state, action, next_state, reward):
+    def __update_q_table(self, state, action, reward, next_state):
         self.__q_table[state, action] = (
                 (1 - self.__learning_rate) * self.__q_table[state, action] +
                 self.__learning_rate * (reward + self.__discount_factor * np.max(self.__q_table[next_state])))

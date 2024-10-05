@@ -3,14 +3,15 @@ from src.Application.environment.env import Environment
 from src.Domain.IReinforcementLearning import IReinforcementLearning
 
 
-class SARSA(IReinforcementLearning):
+class DoubleQLearning(IReinforcementLearning):
 
-    def __init__(self, env: Environment, learning_rate: float, discount_factor: float):
+    def __init__(self, learning_rate : float, discount_factor : float, env: Environment):
         self.__env = env
         self.__learning_rate = learning_rate
         self.__discount_factor = discount_factor
+        self.__random_generator = np.random.default_rng()
         self.__random_action_reward = []
-        self.__q_table = np.zeros((self.__env.states, self.__env.action_space))
+        self.__q_table = np.zeros((2, self.__env.states, self.__env.action_space))
 
     def train(self, episode_num: int, seed=42):
         self.__random_action_reward = []
@@ -19,27 +20,29 @@ class SARSA(IReinforcementLearning):
 
     def __generate_episode(self, seed=42):
         state, _ = self.__env.reset(seed)
-        action = self.__env.action_space.sample()
         terminated = False
         episode_reward = 0
 
         while not terminated:
+            action = self.__env.action_space.sample()
             next_state, reward, terminated, _, _ = self.__env.step(action)
-            next_action = self.__env.action_space.sample()
-            self.__update_q_table(state, action, reward, next_state, next_action)
+            self.__update_q_table(state, action, reward, next_state)
             episode_reward += reward
-            state, action = next_state, next_action
+            state = next_state
 
             if self.__env.is_render_active:
                 self.__env.render()
 
             self.__random_action_reward.append(episode_reward)
 
-    def __update_q_table(self, state, action, reward, next_state, next_action):
-        self.__q_table[state, action] = (
+    def __update_q_table(self, state, action, reward, next_state):
+        table_index = self.__random_generator.integers(2)
+        max_q_table_index = np.argmax(self.__q_table[table_index][state])
+        self.__q_table[table_index][state, action] = (
                 (1 - self.__learning_rate) * self.__q_table[state, action] +
-                self.__learning_rate * (reward + self.__discount_factor * self.__q_table[next_state, next_action]))
+                self.__learning_rate * (
+                        reward + self.__discount_factor * self.__q_table[1-table_index][next_state][max_q_table_index]))
 
     @property
     def q_table(self):
-        return self.__q_table
+        return (self.__q_table[0] + self.__q_table[1])/2
