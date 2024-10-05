@@ -49,4 +49,8 @@ class Agent:
 
     def train(self):
         self.__rl_func.train(self.__episode_num)
-        self.__optimal_policy = {state: np.max(self.__rl_func.q_table[state]) for state in range(self.__env.states)}
+        self.__optimal_policy = {state: np.argmax(self.__rl_func.q_table[state]) for state in range(self.__env.states)}
+
+    @property
+    def policy(self):
+        return self.__optimal_policy
