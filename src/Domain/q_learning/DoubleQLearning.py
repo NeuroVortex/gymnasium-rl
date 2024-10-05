@@ -9,7 +9,7 @@ class DoubleQLearning(IReinforcementLearning):
         self.__env = env
         self.__learning_rate = learning_rate
         self.__discount_factor = discount_factor
-        self.__random_generator = np.random.default_rng()
+        self.__random_generator = np.random.default_rng(seed=42)
         self.__random_action_reward = []
         self.__q_table = np.zeros((2, self.__env.states, self.__env.action_space))
 
