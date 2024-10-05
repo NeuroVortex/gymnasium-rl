@@ -7,7 +7,7 @@ class MonteCarlo:
     def __init__(self, env: Environment, every_visit: bool = False):
         self.__env = env
         self.__every_visit = every_visit
-        self.__q_table = np.zeros((env.states, env.action_space))
+        self.__q_table = np.zeros((env.states, env.action_space.n))
 
     def train(self, episode_num, seed=42):
         self.every_visit_mc(episode_num, seed) if self.__every_visit else self.first_visit_mc(episode_num, seed)
@@ -29,9 +29,9 @@ class MonteCarlo:
         return episode
 
     def every_visit_mc(self, episode_num, seed=42):
-        self.__q_table = np.zeros((self.__env.states, self.__env.action_space))
-        returns_sum = np.zeros((self.__env.states, self.__env.action_space))
-        returns_count = np.zeros((self.__env.states, self.__env.action_space))
+        self.__q_table = np.zeros((self.__env.states, self.__env.action_space.n))
+        returns_sum = np.zeros((self.__env.states, self.__env.action_space.n))
+        returns_count = np.zeros((self.__env.states, self.__env.action_space.n))
 
         for _ in range(episode_num):
             episode = self.__generate_episode(seed)
@@ -45,9 +45,9 @@ class MonteCarlo:
 
     def first_visit_mc(self, episode_num, seed=42):
 
-        self.__q_table = np.zeros((self.__env.states, self.__env.action_space))
-        returns_sum = np.zeros((self.__env.states, self.__env.action_space))
-        returns_count = np.zeros((self.__env.states, self.__env.action_space))
+        self.__q_table = np.zeros((self.__env.states, self.__env.action_space.n))
+        returns_sum = np.zeros((self.__env.states, self.__env.action_space.n))
+        returns_count = np.zeros((self.__env.states, self.__env.action_space.n))
 
         for _ in range(episode_num):
             episode = self.__generate_episode(seed)

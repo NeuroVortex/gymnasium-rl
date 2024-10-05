@@ -19,12 +19,9 @@ class Agent:
                  learning_rate: float = 0.9):
         self.__env = env
         self.__episode_num = episode_num
-        self.__optimal_policy = np.zeros((env.states, env.action_space))
-        self.__initialize(rl_type, learning_rate, discount_factor)
         self.__rl_func: IReinforcementLearning | None = None
-        self.__rl_toolbox = ModelBasedToolbox(env=self.__env,
-                                              policy=self.__optimal_policy,
-                                              discount_factor=discount_factor)
+        self.__optimal_policy = np.zeros((env.states, env.action_space.n))
+        self.__initialize(rl_type, learning_rate, discount_factor)
 
     def __initialize(self, rl_type, learning_rate, discount_factor):
         match rl_type:

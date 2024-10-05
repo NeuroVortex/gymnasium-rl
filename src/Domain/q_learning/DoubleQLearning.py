@@ -11,7 +11,7 @@ class DoubleQLearning(IReinforcementLearning):
         self.__discount_factor = discount_factor
         self.__random_generator = np.random.default_rng(seed=42)
         self.__random_action_reward = []
-        self.__q_table = np.zeros((2, self.__env.states, self.__env.action_space))
+        self.__q_table = np.zeros((2, self.__env.states, self.__env.action_space.n))
 
     def train(self, episode_num: int, seed=42):
         self.__random_action_reward = []

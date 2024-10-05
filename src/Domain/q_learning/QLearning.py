@@ -10,7 +10,7 @@ class QLearning(IReinforcementLearning):
         self.__learning_rate = learning_rate
         self.__discount_factor = discount_factor
         self.__random_action_reward = []
-        self.__q_table = np.zeros((self.__env.states, self.__env.action_space))
+        self.__q_table = np.zeros((self.__env.states, self.__env.action_space.n))
 
     def train(self, episode_num: int, seed=42):
         self.__random_action_reward = []
