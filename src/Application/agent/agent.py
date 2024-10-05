@@ -1,3 +1,5 @@
+import numpy as np
+
 from src.Application.environment.env import Environment
 from src.Contract.RLType import RLType
 from src.Domain.IReinforcementLearning import IReinforcementLearning
@@ -17,9 +19,12 @@ class Agent:
                  learning_rate: float = 0.9):
         self.__env = env
         self.__episode_num = episode_num
+        self.__optimal_policy = np.zeros((env.states, env.action_space))
         self.__initialize(rl_type, learning_rate, discount_factor)
         self.__rl_func: IReinforcementLearning | None = None
-        self.__rl_toolbox = ModelBasedToolbox(env=self.__env, policy=self.__policy, discount_factor=discount_factor)
+        self.__rl_toolbox = ModelBasedToolbox(env=self.__env,
+                                              policy=self.__optimal_policy,
+                                              discount_factor=discount_factor)
 
     def __initialize(self, rl_type, learning_rate, discount_factor):
         match rl_type:
@@ -42,7 +47,6 @@ class Agent:
                 self.__rl_func = DoubleQLearning(env=self.__env, learning_rate=learning_rate,
                                                  discount_factor=discount_factor)
 
-        self.__policy = {state: 0 for state in range(self.__env.states)}
-
-    def act(self):
+    def train(self):
         self.__rl_func.train(self.__episode_num)
+        self.__optimal_policy = {state: np.max(self.__rl_func.q_table[state]) for state in range(self.__env.states)}
