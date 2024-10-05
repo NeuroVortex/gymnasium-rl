@@ -61,3 +61,7 @@ class MonteCarlo:
 
         non_zero_counts = returns_count != 0
         self.__q_table[non_zero_counts] = returns_sum[non_zero_counts] / returns_count[non_zero_counts]
+
+    @property
+    def q_table(self):
+        return self.__q_table

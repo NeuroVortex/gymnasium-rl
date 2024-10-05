@@ -4,6 +4,7 @@ from src.Domain.IReinforcementLearning import IReinforcementLearning
 
 
 class QLearning(IReinforcementLearning):
+
     def __init__(self, learning_rate : float, discount_factor : float, env: Environment):
         self.__env = env
         self.__learning_rate = learning_rate
@@ -31,7 +32,13 @@ class QLearning(IReinforcementLearning):
             if self.__env.is_render_active:
                 self.__env.render()
 
+            self.__random_action_reward.append(episode_reward)
+
     def __update_q_table(self, state, action, next_state, reward):
         self.__q_table[state, action] = (
                 (1 - self.__learning_rate) * self.__q_table[state, action] +
                 self.__learning_rate * (reward + self.__discount_factor * np.max(self.__q_table[next_state])))
+
+    @property
+    def q_table(self):
+        return self.__q_table
