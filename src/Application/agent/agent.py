@@ -1,14 +1,13 @@
 import numpy as np
 
 from src.Application.environment.env import Environment
-from src.Contract.RLType import RLType
 from src.Domain.IReinforcementLearning import IReinforcementLearning
-from src.Domain.model_based.model_based_toolbox import ModelBasedToolbox
 from src.Domain.monte_carlo.MonteCarlo import MonteCarlo
 from src.Domain.q_learning.DoubleQLearning import DoubleQLearning
 from src.Domain.q_learning.QLearning import QLearning
 from src.Domain.sarsa.ExpectedSARSA import ExpectedSARSA
 from src.Domain.sarsa.SARSA import SARSA
+from src.Contract.RLType import RLType
 
 
 class Agent:

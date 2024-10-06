@@ -53,3 +53,6 @@ class Environment:
         snapshot = self.__env.render()
         plt.imshow(snapshot)
         plt.show()
+
+    def close(self):
+        self.__env.close()
