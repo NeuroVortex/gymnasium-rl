@@ -1,5 +1,5 @@
-from src.Application.agent.agent import Agent
-from src.Application.environment.env import Environment
+from gymnasium_rl.agent import Agent
+from gymnasium_rl.environment import Environment
 
 
 if __name__ == '__main__':

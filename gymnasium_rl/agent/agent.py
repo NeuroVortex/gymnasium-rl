@@ -1,13 +1,11 @@
 import numpy as np
 
-from src.Application.environment.env import Environment
-from src.Domain.IReinforcementLearning import IReinforcementLearning
-from src.Domain.monte_carlo.MonteCarlo import MonteCarlo
-from src.Domain.q_learning.DoubleQLearning import DoubleQLearning
-from src.Domain.q_learning.QLearning import QLearning
-from src.Domain.sarsa.ExpectedSARSA import ExpectedSARSA
-from src.Domain.sarsa.SARSA import SARSA
-from src.Contract.RLType import RLType
+from gymnasium_rl.environment.env import Environment
+from gymnasium_rl.interfaces import AbstractReinforcementLearningAlgo
+from gymnasium_rl.algorithms.monte_carlo import MonteCarlo
+from gymnasium_rl.algorithms.q_learning import QLearning, DoubleQLearning
+from gymnasium_rl.algorithms.sarsa import ExpectedSARSA, SARSA
+from gymnasium_rl.contracts.rl_type import RLType
 
 
 class Agent:
@@ -18,7 +16,7 @@ class Agent:
                  learning_rate: float = 0.9):
         self.__env = env
         self.__episode_num = episode_num
-        self.__rl_func: IReinforcementLearning | None = None
+        self.__rl_func: AbstractReinforcementLearningAlgo | None = None
         self.__optimal_policy = np.zeros((env.states, env.action_space.n))
         self.__initialize(rl_type, learning_rate, discount_factor)
 

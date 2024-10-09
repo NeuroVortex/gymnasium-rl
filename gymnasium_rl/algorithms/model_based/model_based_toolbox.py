@@ -1,4 +1,4 @@
-from src.Application.environment.env import Environment
+from gymnasium_rl.environment import Environment
 
 
 class ModelBasedToolbox:
