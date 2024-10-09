@@ -3,64 +3,6 @@
 
 GymnasiumRL is a Python-based reinforcement learning project designed to demonstrate the implementation and comparison of various RL algorithms using the `Gymnasium` environment. The project includes algorithms such as Monte Carlo, Q-Learning, SARSA, and Double Q-Learning. The agent interacts with different environments, like the FrozenLake, to learn optimal policies for decision-making tasks.
 
-## Project Structure
-
-```
-GymnasiumRL/
-│
-├── gymnasium_rl/                   # Primary package folder (use snake_case for Python packages)
-│   ├── __init__.py                 # Initializes the gymnasium_rl package
-│   ├── agent/                      # Agent module for reinforcement learning algorithms
-│   │   ├── __init__.py
-│   │   └── agent.py
-│   ├── environment/                # Environment module for Gymnasium environments
-│   │   ├── __init__.py
-│   │   └── env.py
-│   ├── contracts/                  # Interface definitions (use plural for contract-style folders)
-│   │   ├── __init__.py
-│   │   └── rl_type.py
-│   ├── algorithms/                 # Contains all RL algorithm implementations
-│   │   ├── __init__.py
-│   │   ├── model_based/            # Model-based RL algorithms
-│   │   │   ├── __init__.py
-│   │   │   └── model_based_toolbox.py
-│   │   ├── monte_carlo/            # Monte Carlo RL algorithm
-│   │   │   ├── __init__.py
-│   │   │   └── monte_carlo.py
-│   │   ├── q_learning/             # Q-Learning algorithms
-│   │   │   ├── __init__.py
-│   │   │   ├── double_q_learning.py
-│   │   │   └── q_learning.py
-│   │   ├── sarsa/                  # SARSA algorithms
-│   │       ├── __init__.py
-│   │       ├── sarsa.py
-│   │       └── expected_sarsa.py
-│   ├── interfaces/                 # For defining shared interfaces (like AbstractReinforcementLearningAlgo)
-│       ├── __init__.py
-│       └── rl_algo.py
-│
-├── tests/                          # Unit tests for the package
-│   ├── __init__.py
-│   ├── pytest/                     # Pytest test suite
-│   │       ├── __init__.py
-│   │       ├── test_algorithms.py
-│   │       ├── test_agent.py
-│   │       └── test_env.py
-│   ├── unittest/                   # Unittest test suite
-│   │       ├── __init__.py
-│   │       ├── test_algorithms.py
-│   │       ├── test_agent.py
-│   │       └── test_env.py
-│
-├── scripts/                        # Scripts for running the app, experiments, or utilities
-│   └── main.py                     # Main entry point for the application
-│
-├── README.md                       # Project README file
-├── requirements.txt                # Project dependencies
-├── setup.py                        # Installation script for the project
-└── .gitignore                      # Files to ignore in version control
-```
-
 ## Project Components
 
 ### 1. `gymnasium_rl/` - Primary Package
