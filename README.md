@@ -75,4 +75,4 @@ This project includes a demonstration using the `FrozenLake-v1` environment from
 - **`setup.py`**: Used for installing the package if it is to be distributed.
 
 ## License
-This project is licensed under the MIT License.
+This project is licensed under the Apache License.
