@@ -1,1 +1,2 @@
-from .rl_algorithm import AbstractReinforcementLearningAlgo
+from .rl_algo import AbstractReinforcementLearningAlgo
+

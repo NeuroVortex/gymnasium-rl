@@ -9,5 +9,5 @@ class AbstractReinforcementLearningAlgo(ABC):
         raise NotImplementedError
 
     @abstractmethod
-    def train(self, episode_num: int, seed=42):
+    def generate_episode(self, seed=42):
         raise NotImplementedError

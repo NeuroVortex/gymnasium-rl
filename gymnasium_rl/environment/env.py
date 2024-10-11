@@ -6,7 +6,7 @@ logger = logging.getLogger(__name__)
 
 
 class Environment:
-    def __init__(self, env_id: str, render: bool = True, render_mode: str = 'rgb_array') -> None:
+    def __init__(self, env_id: str, render: bool = True, render_mode: str = 'human') -> None:
         self.__states = 0
         self.__episode = []
         self.__render = render
@@ -14,6 +14,7 @@ class Environment:
 
     def __create_env(self, env_id: str, render_mode):
         self.__env = gym.make(env_id, render_mode=render_mode)
+        self.__env.metadata['render_fps'] = 15
         self.__init_state, _ = self.reset()  # we set seed to enable reproduction of result capability
         self.__states = (self.__env.observation_space.shape
                          if bool(self.__env.observation_space.shape) else self.__env.observation_space.n)
@@ -50,9 +51,10 @@ class Environment:
         return self.__render
 
     def render(self):
-        snapshot = self.__env.render()
-        plt.imshow(snapshot)
-        plt.show()
+        # snapshot = self.__env.render()
+        # plt.imshow(snapshot)
+        # plt.show()
+        self.__env.render()
 
     def close(self):
         self.__env.close()
